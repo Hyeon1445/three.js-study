@@ -10,29 +10,7 @@
 
   <body>
     <script src="js/three.js"></script>
-    <script>
-      const scene = new THREE.Scene() // Scene
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000) // Camera
-
-      const renderer = new THREE.WebGLRenderer() // Renderer
-      renderer.setSize(window.innerWidth, window.innerHeight) // size조절
-      document.body.appendChild(renderer.domElement) // body에 띄우기
-
-      const geometry = new THREE.BoxGeometry() // Geometry(모양)
-      const material = new THREE.MeshBasicMaterial( { color: 0x00ff00, wireframe: true } ) // Material(재질, 표면)
-      const cube = new THREE.Mesh( geometry, material ) // Mesh - Gemoetry, Material로 도형 정의
-      scene.add( cube ) // Scene에 추가하기
-
-      camera.position.z = 5 // 카메라 위치 조절(default 0,0,0 -> 큐브 볼 수 있는 위치로 이동)
-
-      function animate() {
-        requestAnimationFrame( animate )
-        cube.rotation.x += 0.01
-        cube.rotation.y += 0.01
-        renderer.render( scene, camera )
-      }
-      animate()
-    </script>
+    <script src="js/myThree.js"></script>
   </body>
 
 </html>
