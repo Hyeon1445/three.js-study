@@ -26,7 +26,7 @@ const controls = new THREE.OrbitControls( camera, renderer.domElement )
 
 const loader = new THREE.GLTFLoader()
 loader.load(
-  'assets/StrawberryDonut3.glb',
+  'assets/StrawberryDonut4.glb',
   (gltf) => {
     scene.add(gltf.scene)
   }
