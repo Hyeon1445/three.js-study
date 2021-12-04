@@ -17,9 +17,15 @@ const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
 camera.position.set(75, 20, 0)
 
 const scene = new THREE.Scene()
-let light = new THREE.DirectionalLight(0xffffff, 1.0)
-light.position.set(20, 100, 10)
-light.castShadow = true
+
+// let light = new THREE.DirectionalLight(0xffffff, 1.0) // shadow(o)
+// light.position.set(20, 100, 10)
+// light.castShadow = true
+// scene.add(light)
+
+let AmbientLightColor = 0xffffff
+let AmbientLightIntensity = 1 // 0 ~ 1
+const light = new THREE.AmbientLight(AmbientLightColor, AmbientLightIntensity) // soft white light with no shadow
 scene.add(light)
 
 const controls = new OrbitControls(camera, renderer.domElement)
