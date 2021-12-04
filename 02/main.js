@@ -1,5 +1,7 @@
 import * as THREE from 'https://cdn.skypack.dev/three@0.135.0'
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.135.0/examples/jsm/controls/OrbitControls.js'
+import Stats from 'https://cdn.skypack.dev/three@0.135.0/examples/jsm/libs/stats.module.js'
+
 const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
@@ -32,6 +34,9 @@ plane.receiveShadow = true
 plane.rotation.x = -Math.PI / 2
 scene.add(plane)
 
+let stats = new Stats()
+document.body.appendChild(stats.dom)
+
 const box = new THREE.Mesh(
   new THREE.BoxGeometry(2, 2, 2),
   new THREE.MeshStandardMaterial({
@@ -45,6 +50,7 @@ scene.add(box)
 
 const animate = () => {
   requestAnimationFrame(animate)
+  stats.update()
   renderer.render(scene, camera)
 }
 
