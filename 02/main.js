@@ -23,15 +23,18 @@ const scene = new THREE.Scene()
 // light.castShadow = true
 // scene.add(light)
 
-let AmbientLightColor = 0xffffff
-let AmbientLightIntensity = 1 // 0 ~ 1
-const light = new THREE.AmbientLight(AmbientLightColor, AmbientLightIntensity) // soft white light with no shadow
-scene.add(light)
+// let AmbientLightColor = 0xffffff
+// let AmbientLightIntensity = 1 // 0 ~ 1
+// const light = new THREE.AmbientLight(AmbientLightColor, AmbientLightIntensity) // soft white light with no shadow
+// scene.add(light)
+
+const hemisphereLight = new THREE.HemisphereLight(0xffff80, 0x4040ff, 1) // hemisphereLight needs two colors (위/아래 색 다름)
+scene.add(hemisphereLight)
 
 const controls = new OrbitControls(camera, renderer.domElement)
 let geometry = new THREE.PlaneGeometry(100, 100, 10, 10)
 let material = new THREE.MeshStandardMaterial({
-  color: 0xfaed7a,
+  color: 0xffffff,
 })
 
 const plane = new THREE.Mesh(geometry, material)
@@ -43,16 +46,28 @@ scene.add(plane)
 let stats = new Stats()
 document.body.appendChild(stats.dom)
 
-const box = new THREE.Mesh(
-  new THREE.BoxGeometry(2, 2, 2),
+// const box = new THREE.Mesh(
+//   new THREE.BoxGeometry(2, 2, 2),
+//   new THREE.MeshStandardMaterial({
+//     color: 0xffffff,
+//   })
+// )
+
+// box.position.set(0, 5, 0)
+// box.castShadow = true
+// box.receiveShadow = true
+// scene.add(box)
+
+const Sphere = new THREE.Mesh(
+  new THREE.SphereGeometry(5, 15, 15),
   new THREE.MeshStandardMaterial({
-    color: 0xb2ccff,
+    color: 0xffffff,
   })
 )
-box.position.set(0, 5, 0)
-box.castShadow = true
-box.receiveShadow = true
-scene.add(box)
+Sphere.position.set(0, 5, 0)
+Sphere.castShadow = true
+Sphere.receiveShadow = true
+scene.add(Sphere)
 
 const animate = () => {
   requestAnimationFrame(animate)
