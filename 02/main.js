@@ -23,7 +23,7 @@ scene.add(light)
 const controls = new OrbitControls(camera, renderer.domElement)
 let geometry = new THREE.PlaneGeometry(100, 100, 10, 10)
 let material = new THREE.MeshStandardMaterial({
-  color: 0xffffff,
+  color: 0xfaed7a,
 })
 
 const plane = new THREE.Mesh(geometry, material)
@@ -35,7 +35,7 @@ scene.add(plane)
 const box = new THREE.Mesh(
   new THREE.BoxGeometry(2, 2, 2),
   new THREE.MeshStandardMaterial({
-    color: 0xffffff,
+    color: 0xb2ccff,
   })
 )
 box.position.set(0, 5, 0)
