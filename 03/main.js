@@ -74,6 +74,7 @@ let init = () => {
   let param = { 
     motion: true,
     light: true,
+    ambient: ambient.intensity,
   }
   gui.add(param, "motion")
 
@@ -81,6 +82,13 @@ let init = () => {
   lightFolder.add(param, "light").onChange((val) => {
     ambient.intensity = val
   })
+
+  lightFolder
+    .add(param, "ambient", 0.0, 1)
+    .step(0.01)
+    .onChange((val) => { ambient.intensity = val })
+
+  lightFolder.open()
 }
 
 const animate = () => {
