@@ -3,8 +3,11 @@ import { OrbitControls } from 'https://cdn.skypack.dev/three@0.135.0/examples/js
 import Stats from 'https://cdn.skypack.dev/three@0.135.0/examples/jsm/libs/stats.module.js'
 import { GUI } from 'https://cdn.skypack.dev/three@0.134.0/examples/jsm/libs/dat.gui.module.js'
 // version 0.135.0 은 GUI import error
+import { RectAreaLightHelper } from 'https://cdn.skypack.dev/three@0.135.0/examples/jsm/helpers/RectAreaLightHelper.js'
+import { RectAreaLightUniformsLib } from 'https://cdn.skypack.dev/three@0.135.0/examples/jsm/lights/RectAreaLightUniformsLib.js'
 
 let renderer, scene, camera;
+let rectLight, rectLightHelper
 let stats = new Stats()
 
 let init = () => {
@@ -26,6 +29,14 @@ let init = () => {
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5)
   scene.add(directionalLight)
+
+  RectAreaLightUniformsLib.init()
+  rectLight = new THREE.RectAreaLight(0xffffff, 1, 10, 10)
+  rectLight.position.set(5, 5, 10)
+  scene.add(rectLight)
+
+  rectLightHelper = new RectAreaLightHelper(rectLight)
+  rectLight.add(rectLightHelper)
 
   const geoFloor = new THREE.BoxBufferGeometry(2000, 0.1, 2000)
   const matStdFloor = new THREE.MeshStandardMaterial({
@@ -73,31 +84,37 @@ let init = () => {
 
   let param = { 
     motion: true,
-    light: true,
+    width: rectLight.width,
+    height: rectLight.height,
+    color: rectLight.color.getHex(),
+    intensity: rectLight.intensity,
     ambient: ambient.intensity,
-    "material color": matStdObjects.color.getHex()
-    
+    "floor color": matStdFloor.color.getHex(),
+    "object color": matStdObjects.color.getHex(),
+    roughness: matStdFloor.roughness,
+    metalness: matStdFloor.metalness,
   }
   gui.add(param, "motion")
 
   const lightFolder = gui.addFolder("Light")
-  lightFolder.add(param, "light").onChange((val) => {
-    ambient.intensity = val
-  })
-
-  lightFolder
-    .add(param, "ambient", 0.0, 1)
-    .step(0.01)
-    .onChange((val) => { ambient.intensity = val })
-
-  lightFolder.addColor(param, "material color").onChange((val) => {
-    matStdObjects.color.setHex(val)
-  })
+  lightFolder.add(param, "ambient", 0.0, 1).step(0.01).onChange((val) => { ambient.intensity = val })
+  lightFolder.add(param, "width", 1, 20).step(0.1).onChange((val) => { rectLight.width = val })
+  lightFolder.add(param, "height", 1, 20).step(0.1).onChange((val) => { rectLight.height = val })
+  lightFolder.addColor(param, "color").onChange((val) => { rectLight.color.setHex(val) })
+  lightFolder.add(param, "intensity", 0.0, 4.0).step(0.01).onChange((val) => { rectLight.intensity = val })
   lightFolder.open()
+
+  const materialFolder = gui.addFolder("Standard Material")
+  materialFolder.addColor(param, "floor color").onChange((val) => { matStdFloor.color.setHex(val) })
+  materialFolder.addColor(param, "object color").onChange((val) => { matStdObjects.color.setHex(val) })
+  materialFolder.add(param, "roughness", 0.0, 1).step(0.01).onChange((val) => { matStdFloor.roughness = val })
+  materialFolder.add(param, "metalness", 0.0, 1).step(0.01).onChange((val) => { matStdFloor.metalness = val })
+  materialFolder.open()
 }
 
 const animate = () => {
   requestAnimationFrame(animate)
+  // rectLightHelper.update() // error, 없이도 잘 적용
   renderer.render(scene, camera)
   stats.update()
 }
