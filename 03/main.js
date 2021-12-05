@@ -75,6 +75,8 @@ let init = () => {
     motion: true,
     light: true,
     ambient: ambient.intensity,
+    "material color": matStdObjects.color.getHex()
+    
   }
   gui.add(param, "motion")
 
@@ -88,6 +90,9 @@ let init = () => {
     .step(0.01)
     .onChange((val) => { ambient.intensity = val })
 
+  lightFolder.addColor(param, "material color").onChange((val) => {
+    matStdObjects.color.setHex(val)
+  })
   lightFolder.open()
 }
 
