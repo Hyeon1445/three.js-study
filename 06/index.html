@@ -11,17 +11,17 @@
 
   <body>
     <script type="module">
-      import * as THREE from "https://cdn.skypack.dev/three@0.135.0/build/three.module.js";
-      import { OrbitControls } from "https://cdn.skypack.dev/three@0.135.0/examples/jsm/controls/OrbitControls.js";
-      import { GUI } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/libs/dat.gui.module.js";
-      import { Rhino3dmLoader } from "https://cdn.skypack.dev/three@0.135.0/examples/jsm/loaders/3DMLoader.js";
+      import * as THREE from "https://cdn.skypack.dev/three@0.135.0/build/three.module.js"
+      import { OrbitControls } from "https://cdn.skypack.dev/three@0.135.0/examples/jsm/controls/OrbitControls.js"
+      import { GUI } from "https://cdn.skypack.dev/three@0.134.0/examples/jsm/libs/dat.gui.module.js"
+      import { Rhino3dmLoader } from "https://cdn.skypack.dev/three@0.135.0/examples/jsm/loaders/3DMLoader.js"
 
-      let container, controls;
-      let camera, scene, renderer;
-      let gui;
+      let container, controls
+      let camera, scene, renderer
+      let gui
 
-      init();
-      animate();
+      init()
+      animate()
 
       function init() {
         THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1)
@@ -81,16 +81,16 @@
               scene.traverse(function (child) {
                 if (child.userData.hasOwnProperty("attributes")) {
                   if ("layerIndex" in child.userData.attributes) {
-                    const layerName = layers[child.userData.attributes.layerIndex].name;
+                    const layerName = layers[child.userData.attributes.layerIndex].name
 
                     if (layerName === name) {
-                      child.visible = val;
-                      layer.visible = val;
+                      child.visible = val
+                      layer.visible = val
                     }
                   }
                 }
-              });
-            });
+              })
+            })
         }
       }
     </script>
