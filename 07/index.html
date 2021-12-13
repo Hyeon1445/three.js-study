@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>three.js webgl - basis texture loader</title>
+    <title>basis texture loader</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -10,8 +10,8 @@
   </head>
   <body>
     <script type="module">
-      import * as THREE from "https://cdn.skypack.dev/three@0.135.0/build/three.module.js"
-      import { BasisTextureLoader } from "https://cdn.skypack.dev/three@0.135.0/examples/jsm/loaders/BasisTextureLoader.js"
+      import * as THREE from "https://unpkg.com/three@0.124.0/build/three.module.js"
+      import { BasisTextureLoader } from "https://unpkg.com/three@0.124.0/examples/jsm/loaders/BasisTextureLoader.js"
 
       let camera, scene, renderer
       let mesh
@@ -41,9 +41,9 @@
         scene.add(mesh)
 
         const loader = new BasisTextureLoader()
-        loader.setTranscoderPath("https://cdn.skypack.dev/three@0.135.0/examples/js/libs/basis/")
+        loader.setTranscoderPath("https://unpkg.com/three@0.124.0/examples/js/libs/basis/")
         loader.detectSupport(renderer)
-        loader.load("PavingStones.basis", function (texture) { // export error???
+        loader.load("PavingStones.basis", function (texture) {
           texture.encoding = THREE.sRGBEncoding
           material.map = texture
         }, function () {
